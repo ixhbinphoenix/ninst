@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { ninst } = require('./dist/index');
+const { ninst } = require('.');
 
 const nin = new ninst({
     path: './test'
