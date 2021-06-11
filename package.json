@@ -1,0 +1,35 @@
+{
+  "name": "ninst",
+  "version": "0.1.0",
+  "description": "A nodejs library for installing npm modules programatically",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ixhbinphoenix/ninst.git"
+  },
+  "keywords": [
+    "npm",
+    "install",
+    "modules",
+    "dependencies"
+  ],
+  "author": "phoenix_13",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ixhbinphoenix/ninst/issues"
+  },
+  "homepage": "https://github.com/ixhbinphoenix/ninst#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.2",
+    "@types/pacote": "^11.1.0",
+    "jest": "^27.0.4",
+    "typescript": "^4.3.2"
+  },
+  "dependencies": {
+    "pacote": "^11.3.4"
+  }
+}
