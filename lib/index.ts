@@ -17,7 +17,7 @@ export class ninst {
         }
         if (pkg) {
             let pathpkg = pkg.split("@")[0];
-            pacote.extract(pkg, this.opts.path + "/node_modules/" + pathpkg).then(async (res) => {
+            if (!fs.existsSync(this.opts.path + "/node_modules/" + pathpkg)) pacote.extract(pkg, this.opts.path + "/node_modules/" + pathpkg).then(async () => {
                 console.debug(`[ninst](debug) Installed ${pkg}`);
                 if (fs.existsSync(this.opts.path + "/node_modules/" + pathpkg + "/package.json")) {
                     let json = JSON.parse(fs.readFileSync(this.opts.path + "/node_modules/" + pathpkg + "/package.json").toString());
@@ -26,10 +26,20 @@ export class ninst {
                         let keys = Object.keys(deps);
                         let vers = Object.values(deps);
                         let i = 0;
+                        let promises: Array<Promise<void>> = [];
                         for (i = 0; i < keys.length; i++) {
                             let pack = keys[i] + "@" + vers[i];
-                            await this.install(pack);
+                            let promise = new Promise<void>((resolve) => {
+                                this.install(pack).then(() => {
+                                    resolve();
+                                });
+                            })
+                            promises.push(promise)
                         }
+                        while(keys.length != promises.length) {}
+                        Promise.all(promises).then(() => {
+                            return;
+                        })
                     } else {
                         console.debug(`[ninst](debug) Package ${pkg} has no dependencies`);
                     }
@@ -45,10 +55,19 @@ export class ninst {
                     let keys = Object.keys(deps);
                     let vers = Object.values(deps);
                     let i = 0;
+                    let promises: Array<Promise<void>> = [];
                     for (i = 0; i < keys.length; i++) {
                         let pack = keys[i] + "@" + vers[i];
-                        await this.install(pack);
+                        let promise = new Promise<void>((resolve) => {
+                            this.install(pack).then(() => {
+                                resolve();
+                            });
+                        })
+                        promises.push(promise);
                     }
+                    Promise.all(promises).then(() => {
+                        return;
+                    })
                 } else {
                     console.error(`[ninst] Path has no dependencies. Cannot install.`);
                     return;

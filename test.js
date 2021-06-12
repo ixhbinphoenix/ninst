@@ -1,5 +1,5 @@
-const fs = require('fs');
 const { ninst } = require('.');
+const test = require('./test/index.js');
 
 const nin = new ninst({
     path: './test'
@@ -12,4 +12,5 @@ nin.install()
 })
 .then(() => {
     console.info(`[test] Install finished`);
+    test.test();
 })

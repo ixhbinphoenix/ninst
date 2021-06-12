@@ -9,6 +9,6 @@
   "author": "phoenix_13",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^4.1.1"
+    "ninst": "^0.1.1"
   }
 }
